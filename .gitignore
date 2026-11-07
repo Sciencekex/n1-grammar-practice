@@ -1,0 +1,9 @@
+# Local / editor artefacts
+.screenshots/
+.trae-html-share-packages/
+.vscode/
+Thumbs.db
+.DS_Store
+
+# Source material is kept local; the web app ships with derived data.js
+*.pdf
