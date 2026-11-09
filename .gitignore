@@ -4,6 +4,7 @@
 .vscode/
 Thumbs.db
 .DS_Store
+new-page/
 
 # Source material is kept local; the web app ships with derived data.js
 *.pdf
