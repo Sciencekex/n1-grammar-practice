@@ -13,8 +13,8 @@
   const QUESTIONS = DATA.questions;
   const MODULES = DATA.meta.modules || [];
   const TOTAL = QUESTIONS.length;
-  const DAILY_SIZE = DATA.meta.dailySize || 20;
-  const DAILY_WEIGHTS = { ordering: 4, grammar: 6, adverb: 3, vocab: 5, synonym: 2 };
+  const DAILY_SIZE = DATA.meta.dailySize || 40;
+  const DAILY_WEIGHTS = { ordering: 8, grammar: 12, adverb: 6, vocab: 10, synonym: 4 };
 
   const byId = new Map(QUESTIONS.map((q) => [q.id, q]));
   const moduleById = new Map(MODULES.map((m) => [m.id, m]));
@@ -405,7 +405,7 @@
     const d = ensureDaily();
     const done = Object.keys(d.answers).length;
     if (done >= DAILY_SIZE) {
-      toast('今天的 20 题已经完成，去模块练习加练吧');
+      toast(`今天的 ${DAILY_SIZE} 题已经完成，去模块练习加练吧`);
       return;
     }
     const answers = { ...d.answers };
@@ -424,7 +424,7 @@
   }
 
   function startMixed() {
-    const ids = shuffle(QUESTIONS.map((q) => q.id)).slice(0, Math.min(20, TOTAL));
+    const ids = shuffle(QUESTIONS.map((q) => q.id)).slice(0, Math.min(DAILY_SIZE, TOTAL));
     beginSession('mixed', ids);
   }
 
@@ -632,7 +632,7 @@
       if (note) {
         note.textContent = stats.done > 0
           ? `已答 ${stats.done} 题 · 正确 ${stats.correct} 题`
-          : '每天 20 题，混合 5 个模块。';
+          : `每天 ${DAILY_SIZE} 题，混合 5 个模块。`;
       }
       if (button) {
         button.disabled = false;
@@ -777,8 +777,8 @@
     if ($('#totalPercent')) $('#totalPercent').textContent = `${Math.round((attempted / TOTAL) * 100)}%`;
 
     if ($('#moduleTip')) {
-      if (session.mode === 'daily') $('#moduleTip').textContent = '每日练习：混合 5 个模块，每天 20 题。';
-      else if (session.mode === 'mixed') $('#moduleTip').textContent = '综合练习：从全部 5 个模块随机抽题。';
+      if (session.mode === 'daily') $('#moduleTip').textContent = `每日练习：混合 5 个模块，每天 ${DAILY_SIZE} 题。`;
+      else if (session.mode === 'mixed') $('#moduleTip').textContent = `综合练习：从全部 5 个模块随机抽取 ${DAILY_SIZE} 题。`;
       else if (session.mode === 'wrong') $('#moduleTip').textContent = '错题复习：答对后自动移出错题本。';
       else {
         const m = moduleById.get(session.module);
@@ -810,7 +810,7 @@
 
     const again = $('#againBtn');
     if (again) {
-      if (resultState.mode === 'daily') again.textContent = '随机加练 20 题';
+      if (resultState.mode === 'daily') again.textContent = `随机加练 ${DAILY_SIZE} 题`;
       else if (resultState.mode === 'wrong') again.textContent = '再复习一轮';
       else if (resultState.mode === 'mixed') again.textContent = '再随机一组';
       else again.textContent = '再练一组';
