@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="JLPT N1 高频考点练习：排序题、高频语法、高频副词、汉字词汇、近义替换。">
+  <title>JLPT N1 高频考点练习</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232c2f43'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='%23c3b8e5' text-anchor='middle'%3EN1%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="new.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <button class="brand" type="button" data-nav="home" aria-label="返回高频考点首页">
+        <span class="brand-mark">N1</span>
+        <span class="brand-name">JLPT High-Frequency</span>
+        <span class="new-badge">NEW</span>
+      </button>
+      <nav class="topnav" aria-label="主导航">
+        <button class="nav-btn" type="button" data-nav="daily">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+            <path d="M8 3v4M16 3v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"></path>
+          </svg>
+          <span>每日练习</span>
+        </button>
+        <button class="nav-btn" type="button" data-nav="wrong">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 4h12a1 1 0 0 1 1 1v15l-7-4-7 4V5a1 1 0 0 1 1-1Z"></path>
+          </svg>
+          <span>错题本</span>
+          <span class="nav-badge" id="navWrongBadge">0</span>
+        </button>
+        <button class="nav-btn" type="button" data-nav="history">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 11a9 9 0 1 1 2.6 7.4M3 5v6h6"></path>
+            <path d="M12 7v5l3 2"></path>
+          </svg>
+          <span>学习统计</span>
+        </button>
+        <a class="nav-btn nav-link" href="../" title="返回 2639 题旧版题库">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 3h7v7M21 3l-9 9"></path>
+            <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path>
+          </svg>
+          <span>旧版题库</span>
+        </a>
+        <button class="icon-btn" type="button" id="themeBtn" aria-label="切换深浅色主题" title="切换主题">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.4 14.2A8 8 0 0 1 9.8 3.6 8.5 8.5 0 1 0 20.4 14.2Z"></path>
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <main class="main">
+      <section class="view" id="view-home">
+        <div class="landing-grid">
+          <section class="card setup-card new-setup">
+            <div class="card-head setup-head">
+              <div>
+                <p class="eyebrow">JLPT N1 · 2010–2026</p>
+                <h1 class="card-title">高频考点练习</h1>
+                <p class="page-sub">32 场真题 · 5 个模块 · <span id="homeTotalText">972</span> 道可练习题</p>
+              </div>
+              <span class="chip">5 个模块</span>
+            </div>
+
+            <div class="module-grid" id="moduleGrid" aria-label="学习模块"></div>
+
+            <div class="footprint">
+              <div class="footprint-head">
+                <h2>总进度</h2>
+                <p><span id="homeAttempted">0</span> / <span id="homeTotal">972</span> 题</p>
+              </div>
+              <progress id="homeProgress" value="0" max="972" aria-label="总刷题进度"></progress>
+              <p class="hint">累计完成题目，重复只计一次。</p>
+            </div>
+
+            <div class="resume-banner" id="resumeBanner" hidden>
+              <div class="resume-copy">
+                <strong>上次练习还没做完</strong>
+                <span id="resumeText"></span>
+              </div>
+              <button type="button" class="btn secondary btn-sm" id="resumeBtn">继续</button>
+            </div>
+          </section>
+
+          <aside class="side-col">
+            <section class="card daily-card">
+              <div class="card-head">
+                <h2>今日练习</h2>
+                <span class="chip" id="dailyDate">今天</span>
+              </div>
+              <div class="daily-stat"><strong id="dailyDone">0</strong><span>/ 20</span></div>
+              <progress id="dailyProgress" value="0" max="20" aria-label="今日练习进度"></progress>
+              <p class="daily-note" id="dailyNote">每天 20 题，混合 5 个模块。</p>
+              <button type="button" class="btn primary btn-block" id="dailyStartBtn">开始今日练习</button>
+            </section>
+
+            <section class="card mini-stats">
+              <div class="mini-stat"><span>累计已练</span><strong id="homeStatAttempted">0</strong><small>/ 972</small></div>
+              <div class="mini-stat"><span>正确率</span><strong id="homeStatAccuracy">—</strong></div>
+              <div class="mini-stat"><span>错题本</span><strong id="homeStatWrong">0</strong></div>
+            </section>
+
+            <section class="card recent-card">
+              <div class="card-head">
+                <h2>最近作答</h2>
+                <button type="button" class="link" data-nav="history">全部记录 →</button>
+              </div>
+              <div class="recent-list" id="recentList"></div>
+            </section>
+          </aside>
+        </div>
+
+        <details class="card notes-card">
+          <summary>题库说明与记录帮助</summary>
+          <div class="notes-body">
+            <p>题库整理自 2010.07–2026.07 的 N1 真题高频资料，共 5 个模块：排序题、高频语法、高频副词、汉字词汇、近义替换。</p>
+            <p>排序题、语法、副词保留原题；汉字词汇为「看词选义」，近义替换为「选近义词」。高频语法有 2 道原文破损的题未纳入。</p>
+            <p>进度、正确率、错题本保存在当前浏览器；清除浏览器数据会一并清空。每日练习按日期固定生成，刷新不丢进度。</p>
+          </div>
+        </details>
+
+        <footer class="footer">
+          <span>N1 High-Frequency Practice</span>
+          <span aria-hidden="true">·</span>
+          <span>2010–2026 真题高频整理</span>
+          <span aria-hidden="true">·</span>
+          <span>数据仅保存在当前浏览器</span>
+        </footer>
+      </section>
+
+      <section class="view" id="view-quiz" hidden>
+        <div class="quiz-grid">
+          <section class="card quiz-card">
+            <div class="quiz-head">
+              <div class="quiz-head-left">
+                <span class="chip mode-chip" id="quizModuleChip">排序题</span>
+                <span class="qmeta" id="quizSource"></span>
+              </div>
+              <button type="button" class="link" id="exitBtn">退出练习</button>
+            </div>
+
+            <div class="quiz-progress">
+              <div class="progress-label">
+                <span id="quizStep">第 1 / 20 题</span>
+                <span id="quizPercent">0%</span>
+              </div>
+              <progress id="quizProgress" value="0" max="20" aria-label="本轮进度"></progress>
+            </div>
+
+            <div class="quiz-prompt" id="quizPrompt"></div>
+            <h2 class="stem" id="stem"></h2>
+            <div class="options" id="options" role="radiogroup" aria-label="选项"></div>
+            <div class="feedback" id="feedback" hidden aria-live="polite"></div>
+
+            <div class="quiz-actions">
+              <button type="button" class="btn primary" id="submitBtn" disabled>提交答案</button>
+              <span class="kbd-hint">按 1–4 选择 · Enter 提交</span>
+            </div>
+          </section>
+
+          <aside class="side-col quiz-side">
+            <section class="card session-card">
+              <div class="card-head">
+                <h2>本轮进度</h2>
+                <span class="chip" id="sessionModeChip">20 题</span>
+              </div>
+              <div class="session-big"><strong id="sessionDone">0</strong><span>/ <span id="sessionTotal">20</span></span></div>
+              <div class="session-split">
+                <div><span>正确</span><b id="sessionCorrect">0</b></div>
+                <div><span>错误</span><b id="sessionWrong">0</b></div>
+              </div>
+            </section>
+
+            <section class="card">
+              <div class="card-head">
+                <h2>总足迹</h2>
+                <span class="qmeta" id="totalPercent">0%</span>
+              </div>
+              <p class="stat-line"><strong id="quizAttempted">0</strong> / <span id="quizTotal">972</span> 题</p>
+              <progress id="quizTotalProgress" value="0" max="972" aria-label="总刷题进度"></progress>
+              <p class="hint">重复作答只计一次。</p>
+            </section>
+
+            <section class="card tip-card">
+              <h2>模块说明</h2>
+              <p id="moduleTip">每轮 20 题；答错的题会自动加入错题本。</p>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="view-result" hidden>
+        <section class="card result-card">
+          <p class="eyebrow">SESSION COMPLETE</p>
+          <h1 class="result-title">本轮完成</h1>
+          <p class="page-sub" id="resultSub"></p>
+
+          <div class="result-top">
+            <div class="score-ring">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+                <circle class="ring-fg" id="ringFg" cx="60" cy="60" r="52"></circle>
+              </svg>
+              <div class="score-text"><strong id="resultPct">0%</strong><span id="resultRatio">0 / 0</span></div>
+            </div>
+            <div class="result-stats">
+              <div><span>答对</span><strong id="resultCorrect">0</strong></div>
+              <div><span>答错</span><strong id="resultWrong">0</strong></div>
+              <div><span>用时</span><strong id="resultTime">0:00</strong></div>
+            </div>
+          </div>
+
+          <div class="result-actions">
+            <button type="button" class="btn primary" id="againBtn">再练一组</button>
+            <button type="button" class="btn secondary" id="reviewWrongBtn" hidden>复习本轮错题</button>
+            <button type="button" class="btn ghost" id="resultHomeBtn">返回首页</button>
+          </div>
+
+          <div class="result-wrong-list" id="resultWrongList"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-wrong" hidden>
+        <div class="page-head">
+          <div>
+            <p class="eyebrow">REVIEW</p>
+            <h1 class="page-title">错题本</h1>
+            <p class="page-sub" id="wrongSub">共 0 题</p>
+          </div>
+          <div class="page-actions">
+            <button type="button" class="btn primary" id="wrongPracticeBtn">开始复习</button>
+            <button type="button" class="btn ghost btn-sm" id="clearWrongBtn">清空</button>
+          </div>
+        </div>
+        <div class="wrong-grid" id="wrongList"></div>
+      </section>
+
+      <section class="view" id="view-history" hidden>
+        <div class="page-head">
+          <div>
+            <p class="eyebrow">PROGRESS</p>
+            <h1 class="page-title">学习统计</h1>
+            <p class="page-sub">所有数据保存在当前浏览器</p>
+          </div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="card stat-card"><span>累计已练</span><strong id="histAttempted">0</strong><small>/ <span id="histTotal">972</span> 题</small></div>
+          <div class="card stat-card"><span>总正确率</span><strong id="histAccuracy">—</strong><small id="histAttempts">0 次作答</small></div>
+          <div class="card stat-card"><span>学习天数</span><strong id="histDays">0</strong><small>天</small></div>
+          <div class="card stat-card"><span>错题本</span><strong id="histWrong">0</strong><small>题待复习</small></div>
+        </div>
+
+        <section class="card module-breakdown-card">
+          <div class="card-head"><h2>模块进度</h2><span class="qmeta">5 个模块</span></div>
+          <div class="module-breakdown" id="moduleBreakdown"></div>
+        </section>
+
+        <div class="history-grid">
+          <section class="card">
+            <div class="card-head"><h2>最近 7 天</h2><span class="qmeta">按作答次数</span></div>
+            <div class="week-bars" id="weekBars"></div>
+          </section>
+          <section class="card">
+            <div class="card-head"><h2>最近作答</h2></div>
+            <div class="recent-list" id="historyRecent"></div>
+          </section>
+        </div>
+
+        <section class="card">
+          <div class="card-head"><h2>完成记录</h2><span class="qmeta">最近 8 次</span></div>
+          <div class="session-history" id="sessionHistory"></div>
+        </section>
+
+        <div class="danger-zone">
+          <button type="button" class="btn ghost danger" id="clearAllBtn">清空全部学习记录</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
